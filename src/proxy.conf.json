@@ -1,0 +1,7 @@
+{
+    "/api/*": {
+        "target": "https://assignment-api.piton.com.tr/api/v1/user/register",
+        "secure": false,
+        "logLevel": "debug"
+    }
+}
