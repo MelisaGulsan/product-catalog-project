@@ -1,0 +1,46 @@
+<div class="container my-auto" #container>
+	<div class="form-container sign-up-container">
+		<form [formGroup]="userRegister" (ngSubmit)="onSignUpSubmit()" action="#">
+			<h1>Sign up</h1>
+
+			<input #name type="text" placeholder="Name" formControlName="name" />
+			<span *ngIf="userRegister.controls['name'].invalid && userRegister.controls['name'].touched"
+				class="invalid">
+				Name is invalid!
+			</span>
+			<input #email type="email" placeholder="Email" formControlName="email" />
+			<span *ngIf="userRegister.controls['email'].invalid && userRegister.controls['email'].touched"
+				class="invalid">
+				Email is invalid!
+			</span>
+			<input #password type="password" placeholder="Password" formControlName="password" />
+			<span *ngIf="userRegister.controls['password'].invalid &&  userRegister.controls['password'].touched"
+				class="invalid">
+				Password is invalid!
+			</span>
+			<button class="m-3">Sign Up</button>
+		</form>
+	</div>
+	<div class="form-container sign-in-container">
+		<form action="#">
+			<h1>Sign in</h1>
+			<input type="email" placeholder="Email" />
+			<input type="password" placeholder="Password" />
+			<button>Sign In</button>
+		</form>
+	</div>
+	<div class="overlay-container">
+		<div class="overlay">
+			<div class="overlay-panel overlay-left">
+				<h1>Welcome Back!</h1>
+				<p>To keep connected with us please login with your personal info</p>
+				<button class="ghost" (click)="addSignInClass()">Sign In</button>
+			</div>
+			<div class="overlay-panel overlay-right">
+				<h1>Sign up</h1>
+				<p>Enter your personal details and start journey</p>
+				<button class="ghost" (click)="addSignUpClass()">Sign Up</button>
+			</div>
+		</div>
+	</div>
+</div>
