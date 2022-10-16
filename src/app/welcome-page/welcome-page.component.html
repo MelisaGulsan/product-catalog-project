@@ -16,9 +16,13 @@
 			<input #password type="password" placeholder="Password" formControlName="password" />
 			<span *ngIf="userRegister.controls['password'].invalid &&  userRegister.controls['password'].touched"
 				class="invalid">
-				Password is invalid!
+				Your password must contain a letter, a number, and be at least 6 in length.
 			</span>
+			
+			<input type="text" mask='(000) 000-0000' placeHolder="Phone Number"/>
 			<button class="m-3">Sign Up</button>
+		
+
 		</form>
 	</div>
 	<div class="form-container sign-in-container">
