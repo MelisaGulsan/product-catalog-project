@@ -16,6 +16,8 @@ export class LoginGuard implements CanActivate {
     const isAuthenticated = this._store.selectSnapshot(
       AuthState.isAuthenticated
     );
+
+    const token = this._store.selectSnapshot(AuthState.token);
     if (!isAuthenticated) {
       this.router.navigate(["/"]);
     }

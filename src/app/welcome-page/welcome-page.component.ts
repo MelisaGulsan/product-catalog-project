@@ -48,10 +48,9 @@ export class WelcomePage {
   @ViewChild("email") email: ElementRef | undefined;
   @ViewChild("password") password: ElementRef | undefined;
 
-  login(token: string) {
-    console.log(token);
+  login(token: string, email: string) {
     this.store
-      .dispatch(new Login(token))
+      .dispatch(new Login(token, email))
       .subscribe((res) => console.log("login dispatch success", res));
   }
 
@@ -79,12 +78,11 @@ export class WelcomePage {
     const s = new UserApiService();
 
     let formData = this.userRegister.value;
-    console.log(formData);
     const res = await s.login(formData.email!, formData.password!);
     if (res.token == "") {
       alert("Invalid email or password");
     } else {
-      this.login(res.token);
+      this.login(res.token, formData.email!);
       this.router.navigate(["/products"]);
     }
   }

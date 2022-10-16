@@ -7,12 +7,14 @@ import { Login } from "../welcome-page/auth.actions";
 
 export interface AuthStateModel {
   token: string;
+  email: string;
 }
 
 @State<AuthStateModel>({
   name: "auth",
   defaults: {
     token: "",
+    email: "",
   },
 })
 @Injectable()
@@ -24,7 +26,7 @@ export class AuthState {
 
   @Selector()
   static isAuthenticated(state: AuthStateModel): boolean {
-    return !!state.token;
+    return !!state.token && !!state.email;
   }
 
   constructor(private authService: UserApiService) {}
@@ -33,6 +35,7 @@ export class AuthState {
   login(ctx: StateContext<AuthStateModel>, action: Login) {
     const state = ctx.getState();
     state.token = action.token;
+    state.email = action.email;
     ctx.setState({
       ...state,
     });

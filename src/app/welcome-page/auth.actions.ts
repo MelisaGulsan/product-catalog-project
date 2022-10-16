@@ -1,6 +1,6 @@
 export class Login {
   static readonly type = "[Auth] Login";
-  constructor(public token: string) {}
+  constructor(public token: string, public email: string) {}
 }
 
 export class Register {
