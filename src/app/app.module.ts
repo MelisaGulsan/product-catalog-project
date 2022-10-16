@@ -42,7 +42,11 @@ import { LoginGuard } from "./welcome-page/login.guard";
         pathMatch: "full",
         canActivate: [LoginGuard],
       },
-      { path: "products/:id", component: ProductDetailsComponent },
+      {
+        path: "products/:id",
+        component: ProductDetailsComponent,
+        canActivate: [LoginGuard],
+      },
       { path: "**", redirectTo: "/welcome" },
     ]),
   ],
