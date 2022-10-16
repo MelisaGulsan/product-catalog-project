@@ -26,3 +26,34 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 # product-catalog-project
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#Screenshots
+
+Welcome Page
+
+![welcome-page](https://user-images.githubusercontent.com/74907355/196061503-31981533-8b83-4543-95d8-4c51a65cb69f.png)
+
+SignIn Page
+
+![signIn](https://user-images.githubusercontent.com/74907355/196061500-a0165666-90a5-47bf-86d1-feffe9020c1c.png)
+
+![signUpAlert](https://user-images.githubusercontent.com/74907355/196061502-66e9c995-4270-4b87-8722-4176fa25eb58.png)
+
+Products
+
+![products](https://user-images.githubusercontent.com/74907355/196061498-8ce2aa76-4fd3-4865-b22f-d256cd1829e1.png)
+
+Product Detail
+
+![details](https://user-images.githubusercontent.com/74907355/196061495-1de9b114-24af-49aa-99a2-63b1bb4e7072.png)
+![details2](https://user-images.githubusercontent.com/74907355/196061497-c8f1126e-ee2b-4927-9358-243ea3c54499.png)
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+## Todo ##
+
+- [ ] Second password check
+
+- [ ] Adding and removing from favorites
+
+- [ ] Sign Out
