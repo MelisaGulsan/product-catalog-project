@@ -7,7 +7,9 @@ import {
   Validators,
 } from "@angular/forms";
 import { Router } from "@angular/router";
+import { Store } from "@ngxs/store";
 import { UserApiService } from "../services/user-api.service";
+import { Login } from "./auth.actions";
 
 @Component({
   selector: "app-welcome-page",
@@ -19,6 +21,7 @@ export class WelcomePage {
   signUpSubmitted = false;
 
   constructor(
+    private store: Store,
     private formBuilder: FormBuilder,
     private router: Router,
     private http: HttpClient
@@ -43,6 +46,12 @@ export class WelcomePage {
   @ViewChild("email") email: ElementRef | undefined;
   @ViewChild("password") password: ElementRef | undefined;
 
+  login(token: string) {
+    this.store
+      .dispatch(new Login(token))
+      .subscribe((res) => console.log("login dispatch success", res));
+  }
+
   async onSignUpSubmit() {
     this.signUpSubmitted = true;
     if (this.userRegister.invalid) {
@@ -59,9 +68,16 @@ export class WelcomePage {
       formData.email!,
       formData.password!
     );
-    console.log(res);
   }
 
+  async onLoginSubmit() {
+    const s = new UserApiService();
+
+    let formData = this.userRegister.value;
+
+    const res = await s.login(formData.email!, formData.password!);
+    this.login(res.token);
+  }
   userRegister = new FormGroup({
     email: new FormControl("", [
       Validators.required,
