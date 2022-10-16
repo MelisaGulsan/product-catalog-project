@@ -57,7 +57,7 @@ export class WelcomePage {
   async onSignUpSubmit() {
     this.signUpSubmitted = true;
     if (this.userRegister.invalid) {
-      alert("");
+      alert("Please enter the requested information.");
       return;
     }
     this.signUpLoading = true;
