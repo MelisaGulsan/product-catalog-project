@@ -1,11 +1,13 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Component, ElementRef, ViewChild } from "@angular/core";
+
 import {
   FormBuilder,
   FormControl,
   FormGroup,
   Validators,
 } from "@angular/forms";
+
 import { Router } from "@angular/router";
 import { Store } from "@ngxs/store";
 import { UserApiService } from "../services/user-api.service";
@@ -47,6 +49,7 @@ export class WelcomePage {
   @ViewChild("password") password: ElementRef | undefined;
 
   login(token: string) {
+    console.log(token);
     this.store
       .dispatch(new Login(token))
       .subscribe((res) => console.log("login dispatch success", res));
@@ -55,6 +58,7 @@ export class WelcomePage {
   async onSignUpSubmit() {
     this.signUpSubmitted = true;
     if (this.userRegister.invalid) {
+      alert("");
       return;
     }
     this.signUpLoading = true;
@@ -68,15 +72,21 @@ export class WelcomePage {
       formData.email!,
       formData.password!
     );
+    this.container?.nativeElement.classList.remove("right-panel-active");
   }
 
   async onLoginSubmit() {
     const s = new UserApiService();
 
     let formData = this.userRegister.value;
-
+    console.log(formData);
     const res = await s.login(formData.email!, formData.password!);
-    this.login(res.token);
+    if (res.token == "") {
+      alert("Invalid email or password");
+    } else {
+      this.login(res.token);
+      this.router.navigate(["/products"]);
+    }
   }
   userRegister = new FormGroup({
     email: new FormControl("", [

@@ -1,112 +1,39 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
+import { Product } from "../models/product.model";
+import { ProductApiService } from "../services/product-api.service";
+import { Store } from "@ngxs/store";
+import { AuthState } from "../states/auth.state";
 
 @Component({
-  selector: 'app-products',
-  templateUrl: './products.component.html',
-  styleUrls: ['./products.component.css']
+  selector: "app-products",
+  templateUrl: "./products.component.html",
+  styleUrls: ["./products.component.css"],
 })
 export class ProductsComponent implements OnInit {
-  liked = true;
-  products =
-    [
-      {
-        id: 0,
-        name: "string",
-        price: 0,
-        image: "string",
-        description: "string",
-        timeStamp: "2022-10-15T18:18:03.871Z",
-        likes: [
-          {
-            id: 0,
-            email: "string",
-            password: "string",
-            name: "string",
-            token: "string",
-            timeStamp: 0
-          }
-        ]
-      },
-      {
-        id: 0,
-        name: "string",
-        price: 0,
-        image: "string",
-        description: "string",
-        timeStamp: "2022-10-15T18:18:03.871Z",
-        likes: [
-          {
-            id: 0,
-            email: "string",
-            password: "string",
-            name: "string",
-            token: "string",
-            timeStamp: 0
-          }
-        ]
-      },
-      {
-        id: 0,
-        name: "string",
-        price: 0,
-        image: "string",
-        description: "string",
-        timeStamp: "2022-10-15T18:18:03.871Z",
-        likes: [
-          {
-            id: 0,
-            email: "string",
-            password: "string",
-            name: "string",
-            token: "string",
-            timeStamp: 0
-          }
-        ]
-      },
-      {
-        id: 0,
-        name: "string",
-        price: 0,
-        image: "string",
-        description: "string",
-        timeStamp: "2022-10-15T18:18:03.871Z",
-        likes: [
-          {
-            id: 0,
-            email: "string",
-            password: "string",
-            name: "string",
-            token: "string",
-            timeStamp: 0
-          }
-        ]
-      },
-      {
-        id: 0,
-        name: "string",
-        price: 0,
-        image: "string",
-        description: "string",
-        timeStamp: "2022-10-15T18:18:03.871Z",
-        likes: [
-          {
-            id: 0,
-            email: "string",
-            password: "string",
-            name: "string",
-            token: "string",
-            timeStamp: 0
-          }
-        ]
-      }
-    ]
-  constructor() {
-
-
+  productsList: any;
+  constructor(
+    private productsService: ProductApiService,
+    private store: Store
+  ) {
+    this.productsList = [];
   }
 
   ngOnInit(): void {
+    const token = this.store.selectSnapshot(AuthState.token);
+    const products = this.productsService.getProducts(token!).then((data) => {
+      this.productsList = data["products"].map(
+        (p: any) =>
+          new Product(
+            p.id,
+            p.name,
+            p.price,
+            "https://assignment-api.piton.com.tr" + p.image,
+            p.description,
+            p.timeStamp,
+            p.likes
+          )
+      );
+    });
+    // console.log(this.productsList);
   }
-
-
 }

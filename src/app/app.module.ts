@@ -11,7 +11,10 @@ import { HttpClientModule } from "@angular/common/http";
 import { ProductDetailsComponent } from "./product-details/product-details.component";
 import { RouterModule } from "@angular/router";
 import { NgxsModule } from "@ngxs/store";
+import { NgxsStoragePluginModule } from "@ngxs/storage-plugin";
 import { AuthState } from "./states/auth.state";
+import { UserApiService } from "./services/user-api.service";
+import { LoginGuard } from "./welcome-page/login.guard";
 
 @NgModule({
   declarations: [
@@ -21,7 +24,10 @@ import { AuthState } from "./states/auth.state";
     ProductDetailsComponent,
   ],
   imports: [
-    NgxsModule.forRoot([AuthState]),
+    NgxsModule.forRoot([AuthState], { developmentMode: true }),
+    NgxsStoragePluginModule.forRoot({
+      key: "auth.token",
+    }),
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
@@ -30,12 +36,17 @@ import { AuthState } from "./states/auth.state";
     RouterModule.forRoot([
       { path: "", component: WelcomePage },
       { path: "welcome", component: WelcomePage, pathMatch: "full" },
-      { path: "products", component: ProductsComponent, pathMatch: "full" },
-      { path: "details", component: ProductDetailsComponent },
+      {
+        path: "products",
+        component: ProductsComponent,
+        pathMatch: "full",
+        canActivate: [LoginGuard],
+      },
+      { path: "products/:id", component: ProductDetailsComponent },
       { path: "**", redirectTo: "/welcome" },
     ]),
   ],
-  providers: [],
+  providers: [UserApiService, LoginGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
